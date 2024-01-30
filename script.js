@@ -19,13 +19,35 @@ btns.forEach((item) => {
         if( itemText === "<"){
             display.innerHTML = display.innerHTML.slice(0, -1);
         }
-        if(itemText !== "C" && itemText !== "<" && itemText !== "="){
+        if(itemText !== "C" && itemText !== "<" && itemText !== "=" && itemText !== "π" 
+        && itemText !== "e" && itemText !== "(" && itemText !== ")" && itemText !== "mod"){
             display.innerHTML += itemText;
         }
         if( itemText === "="){
             display.innerHTML = eval(display.innerHTML);
 
         }
+        if( itemText === "π"){
+            display.innerHTML +=Math.PI;
+
+        }
+        if( itemText === "e"){
+            display.innerHTML +=Math.E;
+
+        }
+        if( itemText === "("){
+            display.innerHTML += "(";
+
+        }
+        if( itemText === ")"){
+            display.innerHTML += ")";
+
+        }
+        if( itemText === "mod"){
+            display.innerHTML += "%";
+
+        }
+
     });
 });
 operations.forEach((item) => {
@@ -43,6 +65,28 @@ operations.forEach((item) => {
         if(itemText === "+/-"){
             plusMinus();
         }
+        if(itemText === "exp"){
+            exp();
+        }
+        if(itemText === "|X|"){
+            abs();
+        }
+        if( itemText === "1/X"){
+            dividedOne();
+        }
+        if( itemText === "xʸ"){
+            powXY();
+        }
+        if( itemText === "n!"){
+            notDefined();
+        }
+        if( itemText === "ln"){
+            notDefined();
+        }
+        if( itemText === "2ⁿᵈ"){
+            notDefined();
+        }
+        
 
     });
 });
@@ -60,4 +104,19 @@ const sqrt = () =>{
 
 const plusMinus = () =>{
     display.innerHTML = display.innerHTML * -1;    
+}
+const exp = () => {
+    display.innerHTML = Math.exp(display.innerHTML);
+}
+const abs = () => {
+    display.innerHTML = Math.abs(display.innerHTML);
+}
+const dividedOne = () => {
+    display.innerHTML = 1/display.innerHTML;
+}
+const powXY = () => {
+    display.innerHTML += "**";
+}
+const notDefined = () => {
+    alert('Button not defined');
 }
