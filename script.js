@@ -21,6 +21,9 @@ btns.forEach((item) => {
         }
         if(itemText !== "C" && itemText !== "<" && itemText !== "=" && itemText !== "π" 
         && itemText !== "e" && itemText !== "(" && itemText !== ")" && itemText !== "mod"){
+            if(display.innerHTML === "0"){
+                display.innerHTML = display.innerHTML.slice(0, -1);
+            }
             display.innerHTML += itemText;
         }
         if( itemText === "="){
