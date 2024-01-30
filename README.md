@@ -1,2 +1,2 @@
 Calculator for university project in course WEB - Technologies.
-**Not every calc functions defined.
+host: https://katyapetukhov.github.io/web_technologies/
