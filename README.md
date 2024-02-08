@@ -1,2 +1,2 @@
-Calculator for university project in course WEB - Technologies.
+Labs in the course WEB - Technologies.
 host: https://katyapetukhov.github.io/web_technologies/
