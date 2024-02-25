@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        const url = "https://dummyjson.com/products?limit=100";
+        const opt = {
+            mode: "cors",
+        };
+
+        $(() => {
+            fetchProducts();
+        });
+
+        const fetchProducts = async () => {
+            try {
+                let response = await fetch(url, opt);
+                let data = await response.json();
+                createTable(data.products.slice(0, 10)); // Display first 10 products
+                createPagination(data.products);
+                console.log(data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        const createTableHeader = () => {
+            let thead = $("<thead/>").addClass("bg-gray-100");
+            let tr = $("<tr/>");
+            ["ID", "Name", "Brand", "Price", "Category", "Image"].forEach((text, index) => {
+                let thClass = "px-4 py-2";
+                if (index >= 4) { // Apply hiding for Category and Image columns on mobile
+                    thClass += " hidden sm:table-cell";
+                }
+                let th = $("<th/>").text(text).addClass(thClass);
+                tr.append(th);
+            });
+            thead.append(tr);
+            return thead;
+        };
+
+        const createRow = (product) => {
+            let tr = $("<tr/>").addClass("min-h-[60px]"); // Set minimum height for each row
+            $("<td/>").text(product.id).addClass("border px-4 py-2").appendTo(tr);
+            $("<td/>").text(product.title).addClass("border px-4 py-2").appendTo(tr);
+            $("<td/>").text(product.brand).addClass("border px-4 py-2").appendTo(tr);
+            $("<td/>").text(`$${product.price}`).addClass("border px-4 py-2").appendTo(tr);
+            $("<td/>").text(product.category).addClass("border px-4 py-2 hidden sm:table-cell").appendTo(tr); // Hide on mobile
+            let imgTd = $("<td/>").addClass("border px-4 py-2 hidden sm:table-cell");
+            $("<img/>", { src: product.thumbnail, alt: product.title, width: "50" }).appendTo(imgTd);
+            tr.append(imgTd);
+            return tr;
+        };
+
+        const createTable = (products) => {
+            $("#myTable").empty();
+            let table = $("<table/>").addClass("min-w-full border-collapse");
+            let thead = createTableHeader();
+            let tbody = $("<tbody/>");
+            products.forEach(product => {
+                tbody.append(createRow(product));
+            });
+            table.append(thead, tbody);
+            $("#myTable").append(table);
+        };
+
+        const createPagination = (products) => {
+            let paginationDiv = $("<div/>").addClass("flex justify-center mt-4");
+            for (let i = 0; i < products.length; i += 10) {
+                let button = $("<button/>")
+                    .text(i / 10 + 1)
+                    .addClass("mx-1 px-4 py-2 bg-blue-500 text-white rounded")
+                    .on("click", () => createTable(products.slice(i, i + 10)));
+                paginationDiv.append(button);
+            }
+            $("#myTable").after(paginationDiv);
+        };
+    </script>
+</head>
+<body class="py-5"> <!-- Added padding to the top and bottom of the body -->
+    <div id="myTable" class="container mx-auto"></div>
+</body>
+</html>
