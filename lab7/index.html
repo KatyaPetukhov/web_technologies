@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Browser</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script> <!-- Link to your AngularJS app -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="inc/loading.css">
+</head>
+<body ng-app="imageBrowserApp">
+
+    <div ng-controller="ImageController as imgCtrl">
+      
+      <div class="row justify-content-center p-5">
+        <div ng-repeat="image in imgCtrl.images" class="col mt-1 bg-image hover-zoom">
+          <a href="" class="img_hover">        
+              <img ng-src="{{image.thumbnail}}" ng-click="imgCtrl.showImage(image.id)" class="bg-image rounded " />
+          </a>
+      </div>
+      </div>
+
+      <div class="d-flex flex-row justify-content-center">
+        <div ng-if="imgCtrl.selectedImage" class="p-3">
+          <img ng-src="{{imgCtrl.selectedImage}}" class="rounded"/>
+      </div>
+      </div>
+
+    </div>
+
+</body>
+</html>
